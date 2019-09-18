@@ -2,7 +2,8 @@
 
 module Main =
     open System
-    open Functions
+    open Functions.PrintStatements
+    open Functions.FileInfo
 
     [<EntryPoint>]
     [<STAThread>]
@@ -62,33 +63,33 @@ module Main =
                 | false, _ -> 0
 
             if SelectedOption = "1" then
-                PrintStatements.PrintHostName()
+                PrintHostName()
             elif SelectedOption = "2" then 
-                PrintStatements.PrintIP()
+                PrintIP()
             elif SelectedOption = "3" then
-                PrintStatements.PrintDNSServers()
+                PrintDNSServers()
             elif SelectedOption = "4" then
-                PrintStatements.PrintDefaultGateway()
+                PrintDefaultGateway()
             elif SelectedOption = "5" then
-                PrintStatements.PrintAvailableMemory()
+                PrintAvailableMemory()
             elif SelectedOption = "6" then
-                PrintStatements.PrintPath()
+                PrintPath()
             elif SelectedOption = "7" then
-                PrintStatements.PrintDrivers()
+                PrintDrivers()
             elif SelectedOption = "8" then
-                PrintStatements.PrintProcesses()
+                PrintProcesses()
             elif SelectedOption = "9" then
                 printfn "*This must be ran as an admin for this function to work*"
                 printfn "Enter a PID: "
                 SelectedOption <- Console.ReadLine().ToString()
                 let PID = tryToInt(SelectedOption)
-                PrintStatements.KillProcess(PID)
+                KillProcess(PID)
             elif SelectedOption = "10" then
-                FileInfo.ReadTextFile()
+                ReadTextFile()
             elif SelectedOption = "11" then
-                FileInfo.ReadFileSecurity()
+                ReadFileSecurity()
             elif SelectedOption = "12" then
-                PrintStatements.PrintActiveConnections()
+                PrintActiveConnections()
 
             ignore(Console.ReadKey())
         0 // return an integer exit code

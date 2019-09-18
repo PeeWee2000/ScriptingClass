@@ -1,0 +1,1 @@
+﻿Get-Service | Where-Object {$_.Status -eq "Running"} | Sort-Object -Descending | Out-File -FilePath .\RiderHarrisonServicesList.txt

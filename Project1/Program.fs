@@ -44,15 +44,18 @@ module Main =
         
     
             let mutable SelectedOption = null
-    
+            let mutable PressedKey = ConsoleKey.D0
 
-            while SelectedOption = null do
+            while PressedKey <> ConsoleKey.Enter do
                 Console.SetCursorPosition(0,1)
                 let Now = DateTime.Now
                 printfn "__________%A__________" Now
 
                 if Console.KeyAvailable = true then
-                    SelectedOption <- Console.ReadKey().KeyChar.ToString()
+                    let KeyPress = Console.ReadKey()
+                    PressedKey <- KeyPress.Key
+                    if KeyPress.Key <> ConsoleKey.Enter then
+                        SelectedOption <- SelectedOption + KeyPress.KeyChar.ToString()
     
             Console.Clear()
 

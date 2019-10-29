@@ -1,19 +1,29 @@
 ﻿Write-Host "Please don't enter nulls"
+[char]$input
 DO 
 {
-$Date = Read-Host "Type a date"
-$Name = Read-Host "Type a name"
-$Address = Read-Host "Type an address"
-$Phone = Read-Host "Type a phone number"
-$City = Read-Host "Type a City"
-$State = Read-Host "Type a state"
-$Zip = Read-Host "Type a zip"
 
-$input = Read-Host "Type Q and press enter to Quit"
+
+[string]$Date = Read-Host "Type a date"
+[string]$Name = Read-Host "Type a name"
+[string]$Address = Read-Host "Type an address"
+[string]$Phone = Read-Host "Type a phone number"
+[string]$City = Read-Host "Type a City"
+[string]$State = Read-Host "Type a state"
+[string]$Zip = Read-Host "Type a zip"
+
+
+if ([string]::IsNullOrEmpty($Date) -or [string]::IsNullOrEmpty($Name) -or [string]::IsNullOrEmpty($Address) -or [string]::IsNullOrEmpty($Phone) -or [string]::IsNullOrEmpty($City) -or [string]::IsNullOrEmpty($State) -or [string]::IsNullOrEmpty($Zip))
+	{
+		($Date + $Name + $Address + $Phone + $City + $State + $Zip) | Out-File -Append -FilePath .\DatBoi.txt 
+		$input = Read-Host "Type Q and press enter to Quit or press the any other key to continue"
+	}
+else
+	{ Write-Host "Null values were entered please try again"}
+
 
 } While ($input -notlike "Q") 
 
 
-($Date + $Name + $Address + $Phone + $City + $State + $Zip) | Out-File -FilePath .\DatBoi.txt 
 
 

@@ -3,7 +3,7 @@
 DO 
 {
 
-
+Clear
 [string]$Date = Read-Host "Type a date"
 [string]$Name = Read-Host "Type a name"
 [string]$Address = Read-Host "Type an address"
@@ -19,9 +19,10 @@ if ([string]::IsNullOrEmpty($Date) -or [string]::IsNullOrEmpty($Name) -or [strin
 		$input = Read-Host "Type Q and press enter to Quit or press the any other key to continue"
 	}
 else
-	{ Write-Host "Null values were entered please try again"}
-
-
+	{ 
+		Write-Host "Null values were entered record not written"
+		$input = Read-Host "Type Q and press enter to Quit or press the any other key to continue"
+	}
 } While ($input -notlike "Q") 
 
 

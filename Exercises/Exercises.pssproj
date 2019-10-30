@@ -38,10 +38,8 @@
     <Compile Include="Exercise6-P2.ps1" />
     <Compile Include="Exercise7.ps1" />
     <Compile Include="Exercise8.ps1" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Project1.7z" />
-    <Content Include="Project2.7z" />
+    <Compile Include="Project1.ps1" />
+    <Compile Include="Project2.ps1" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="Build" />

@@ -1,47 +1,54 @@
 #
 # Project1.ps1
 #
+
 function PrintHostName
-{}
+{[System.Net.Dns]::GetHostName()}
 
 function PrintIP
-{}
+{Get-NetIPAddress}
 
 function PrintDNSServers
-{}
+{Get-DnsClientServerAddress}
 
 function PrintDefaultGateway
-{}
+{Get-WmiObject -Class Win32_IP4RouteTable |
+  where { $_.destination -eq '0.0.0.0' -and $_.mask -eq '0.0.0.0'} |
+  Sort-Object metric1 | select nexthop, metric1, interfaceindex}
 
 function PrintAvailableMemory
-{}
+{(systeminfo | Select-String 'Total Physical Memory:').ToString().Split(':')[1].Trim()}
 
 function PrintPath
-{}
+{$Env:Path}
 
 function PrintDrivers
-{}
+{Get-WindowsDriver -Online -All | More}
 
 function PrintRunningProcesses
-{}
+{Get-Process | More}
 
 function KillProcess
-{}
+{Stop-Process -Id $ProcessID}
 
 function PrintActiveConnections
-{}
+{Get-NetTCPConnection | More}
 
 function ReadTextFile
-{}
+{ Get-Content $TextFile | More}
 
 function ReadFileSecurity
-{}
+{Get-Acl $Path}
 
-[int]$SelectedOption
+$SelectedOption
+[int]$ProcessID
+[string]$Path
 
-While (1 -eq 1)
+Do 
 {
+	Clear-Variable $SelectedOption
 	Clear
+	Get-Date
 	Write-Host "1: Show System Hostname"
 	Write-Host "2: Show System IP Address"
 	Write-Host "3: Show System DNS Servers"
@@ -54,7 +61,7 @@ While (1 -eq 1)
 	Write-Host "10: Display a text file on the screen"
 	Write-Host "11: Get File Security Information"
 	Write-Host "12: Show All TCP/IP Network Connections and listening Ports"
-	Write-Host "Press Ctrl + C to exit"
+	Write-Host "Press Ctrl + C or Q to exit"
 
 	$SelectedOption = Read-Host
 
@@ -75,13 +82,27 @@ While (1 -eq 1)
 	elseif ($SelectedOption -eq 8)
 	{ PrintRunningProcesses }
 	elseif ($SelectedOption -eq 9)
-	{ KillProcess }
+	{ 
+		Write-Host "Enter the ID of the process you wish to terminate"
+		$ProcessID = Read-Host
+		KillProcess 
+	}
 	elseif ($SelectedOption -eq 10)
-	{ PrintActiveConnections }
+	{ 
+		Write-Host "Please enter the full path of the text file you wish to read"
+		$Path = Read-Host
+		ReadTextFile 
+	}
 	elseif ($SelectedOption -eq 11)
-	{ ReadTextFile }
+	{ 
+		Write-Host "Please Enter the full path of the file you want the ACL of"
+		$Path = Read-Host
+		ReadFileSecurity 
+	}
 	elseif ($SelectedOption -eq 12)
-	{ ReadFileSecurity }
+	{ PrintActiveConnections }
 	else
 	{Write-Host "Invalid option selected"}
-}
+	Write-Host "Press any key to continue"
+	Read-Host
+} While ($SelectedOption -notlike "Q") 

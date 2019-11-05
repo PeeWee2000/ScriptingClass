@@ -64,6 +64,7 @@ Do
 	Write-Host "Press Ctrl + C or Q to exit"
 
 	$SelectedOption = Read-Host
+	Clear
 
 	if ($SelectedOption -eq 1)
 	{ PrintHostName }

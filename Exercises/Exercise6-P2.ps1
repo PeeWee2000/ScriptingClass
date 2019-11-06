@@ -15,13 +15,13 @@ Clear
 
 if ([string]::IsNullOrEmpty($Date) -or [string]::IsNullOrEmpty($Name) -or [string]::IsNullOrEmpty($Address) -or [string]::IsNullOrEmpty($Phone) -or [string]::IsNullOrEmpty($City) -or [string]::IsNullOrEmpty($State) -or [string]::IsNullOrEmpty($Zip))
 	{
-		($Date + $Name + $Address + $Phone + $City + $State + $Zip) | Out-File -Append -FilePath .\DatBoi.txt 
+		Write-Host "Null values were entered record not written"
 		$input = Read-Host "Type Q and press enter to Quit or press the any other key to continue"
 	}
 else
 	{ 
-		Write-Host "Null values were entered record not written"
-		$input = Read-Host "Type Q and press enter to Quit or press the any other key to continue"
+		($Date + $Name + $Address + $Phone + $City + $State + $Zip) | Out-File -Append -FilePath .\DatBoi.txt 
+		$input = Read-Host "Type Q and press enter to Quit or press the any other key to continue"		
 	}
 } While ($input -notlike "Q") 
 

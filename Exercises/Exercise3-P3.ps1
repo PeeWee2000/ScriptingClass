@@ -1,2 +1,2 @@
 ﻿Get-EventLog  -LogName "system" -After 1/1/2019 -Before 7/11/2019 -EntryType "Warning" | Out-File -FilePath .\"$RiderH".log
-Get-EventLog  -LogName "system" -After 8/1/2019 -Before 9/1/2019 -EntryType "Warning" | Out-File -FilePath .\"$RiderH".log
+Get-EventLog  -LogName "system" -After 8/1/2019 -Before 9/1/2019 -EntryType "Warning" | Out-File -FilePath -Append .\"$RiderH".log

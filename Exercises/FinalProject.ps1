@@ -2,7 +2,6 @@
 #This script reads an excel workbook and spits out some csv files
 $PrintScriptRunTime =  [system.diagnostics.stopwatch]::StartNew() #Function to time how long the script runs
 Clear #Clear the screen
-CD "C:\Users\PeeWee2000\Documents\School\ITS 3410 - Scripting For Network Administrators"
 Set-ExecutionPolicy Unrestricted -Force #Need admin capabilities
 Install-Module ImportExcel -scope CurrentUser #Install ImportExcel for the current user if it is not already
 

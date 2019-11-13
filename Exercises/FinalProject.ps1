@@ -1,8 +1,7 @@
 $PrintScriptRunTime =  [system.diagnostics.stopwatch]::StartNew()
 Set-ExecutionPolicy Unrestricted -Force 
 Install-Module ImportExcel -scope CurrentUser 
-$WorkSheet = Import-Excel -Path .\GD2018Price.xlsx -WorkSheetname "CM Pricing" -HeaderName 'Material', 'Description', 'Price'
-foreach ($Row in $WorkSheet) { 
+foreach ($Row in Import-Excel -Path .\GD2018Price.xlsx -WorkSheetname "CM Pricing" -HeaderName 'Material', 'Description', 'Price') { 
 $CSV1 += $Row.Material + "," + [math]::Round($Row.Price * 0.6,2) + "," + $Row.Price + "`r`n"
 $CSV2 += $Row.Material + "-00," + [math]::Round($Row.Price * 0.6,2) + "," + $Row.Price + "`r`n"
 $CSV3 += $Row.Material + "-01," + [math]::Round($Row.Price * 0.6,2) + "," + $Row.Price + "`r`n" } 

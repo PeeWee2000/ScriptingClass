@@ -38,6 +38,7 @@
     <Compile Include="Exercise6-P2.ps1" />
     <Compile Include="Exercise7.ps1" />
     <Compile Include="Exercise8.ps1" />
+    <Compile Include="FinalProject.ps1" />
     <Compile Include="Project1.ps1" />
     <Compile Include="Project2.ps1" />
     <Compile Include="Project3.ps1" />

@@ -1,6 +1,3 @@
-#
-# Project3.ps1
-#
 Clear
 CD "C:\Users\PeeWee2000\Documents\School\ITS 3410 - Scripting For Network Administrators"
 $Data = Get-Content .\STUDENTS.txt
@@ -37,5 +34,5 @@ ForEach ($Student in $Students)
 }
 
 $Html = $Html + "</table>"
-#Write-Output $Html
+$Html | Out-File -FilePath .\Students.htm
 

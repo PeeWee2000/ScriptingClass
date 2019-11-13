@@ -1,5 +1,5 @@
 Clear #Clear the screen
-CD "C:\Users\PeeWee2000\Documents\School\ITS 3410 - Scripting For Network Administrators" #Change directory
+#CD "C:\Users\PeeWee2000\Documents\School\ITS 3410 - Scripting For Network Administrators"
 $Data = Get-Content .\STUDENTS.txt #Load data from Students.txt
 
 $Students = $Data -match "\d+-\d" #Find valid data rows

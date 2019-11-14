@@ -1,30 +1,23 @@
 #Rider Harrison ITS 3410 Final Project
 #This script reads an excel workbook and spits out some csv files
+rv * -ea SilentlyContinue; rmo *; $error.Clear(); cls             #Clean the session and clear any old variables
 $PrintScriptRunTime =  [system.diagnostics.stopwatch]::StartNew() #Function to time how long the script runs
-Clear #Clear the screen
-CD "C:\Users\PeeWee2000\Documents\School\ITS 3410 - Scripting For Network Administrators"
-Set-ExecutionPolicy Unrestricted -Force #Need admin capabilities
-Install-Module ImportExcel -scope CurrentUser #Install ImportExcel for the current user if it is not already
+Set-ExecutionPolicy Unrestricted -Force                           #Need admin capabilities
+Install-Module ImportExcel -scope CurrentUser                     #Install ImportExcel for the current user if it is not already
 
-$WorkSheet = Import-Excel -Path .\GD2018Price.xlsx -WorkSheetname "CM Pricing" -HeaderName 'Material', 'Description', 'Price'
+$WorkSheet = Import-Excel -Path .\GD2018Price.xlsx -WorkSheetname "CM Pricing" -HeaderName 'Material', 'Description', 'Price' #Import the excel sheet and specify its headers
 
-$CSV1 = "SEP=,`r`nMain Warehouse`r`nMaterial,Cost,Price`r`n" #Create a CSV file and set the separator character and header columns
-$CSV2 = "SEP=,`r`nWarehouse-00`r`nMaterial,Cost,Price`r`n" #Create a CSV for Warehouse 00
-$CSV3 = "SEP=,`r`nWarehouse-01`r`nMaterial,Cost,Price`r`n" #Create a CSV for Warehouse 01
-
-foreach ($Row in $WorkSheet) #Loop through all the rows in the worksheet object
-{ 
-    [decimal]$RawCost = $Row.Price * 0.6 #Calculate the cost
-    [decimal]$RoundedCost = [math]::Round($RawCost,2) #Set the Cost to always have 2 decimals
+foreach ($Row in $WorkSheet) {
+   
+    [decimal]$Price = $Row.Price                      #Cast the price as a decimal because powershell cant handle ToStringing a compiler type inferenced variable
+    [decimal]$Cost = [math]::Round($Price * 0.6,2)    #Calculate the cost and cast it as a decimal
     
-    #Row.Material is the Material Column for the current Row note that `r`n is recognized a new line
-    $CSV1 += $Row.Material + "," + $RoundedCost + "," + $Row.Price + "`r`n" #Add a data row to CSV1
-    $CSV2 += $Row.Material + "-00," + $RoundedCost + "," + $Row.Price + "`r`n" #Add a data Row to CSV2
-    $CSV3 += $Row.Material + "-01," + $RoundedCost + "," + $Row.Price + "`r`n" #Add a data Row to CSV3
-} 
-
-$CSV1 | Out-File -FilePath .\GDPARTS.CSV #Output CSV1
-$CSV2 | Out-File -FilePath .\GDPARTS00.CSV #Output CSV2
-$CSV3 | Out-File -FilePath .\GDPARTS01.CSV #Output CSV3
+    $CSV1 += $Row.Material + "," + $Cost.ToString("0.00") + "," + $Price.ToString("0.00") + "`r`n"     #Each of these 3 lines adds a row to a string variable once all rows in the worksheet have been looped through
+    $CSV2 += $Row.Material + "-00," + $Cost.ToString("0.00") + "," + $Price.ToString("0.00") + "`r`n"  #Note that .ToString(0.00) formats a decimal as a string with two two decimal places and includes trailing zeroes
+    $CSV3 += $Row.Material + "-01," + $Cost.ToString("0.00") + "," + $Price.ToString("0.00") + "`r`n"} #Note that `r`n is recognized as a new line in a csv
+                                                                                                     
+$CSV1 | Out-File -FilePath .\GDPARTS.CSV
+$CSV2 | Out-File -FilePath .\GDPARTS00.CSV
+$CSV3 | Out-File -FilePath .\GDPARTS01.CSV 
 
 $PrintScriptRunTime

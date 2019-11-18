@@ -35,12 +35,12 @@ While ($ExitCondition -notlike "X")
     $Average = $Average + $Score
 
     if ( $Score -lt 60)
-    { $Student | Out-File -FilePath .\NeedsHelp.txt
+    { $Student + " Score: " + $Score | Out-File -FilePath .\NeedsHelp.txt -Append
         $Fails++
      }
 
     if( $Score -ge 90 )
-    { $Student | Out-File -FilePath .\BestOf.txt
+    { $Student + " Score: " + $Score | Out-File -FilePath .\BestOf.txt -Append
         $As++
      }
 
@@ -65,20 +65,8 @@ Write-Host "C's :" $Cs
 Write-Host "D's :" $Ds
 Write-Host "F's :" $Fails
 
-Get-Content -Path .\BestOf.txt
+Write-Host "Top Students"
+try { Get-Content -Path .\BestOf.txt} catch { }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Write-Host "The following students need help:"
+try { Get-Content -Path .\NeedsHelp.txt } catch { }

@@ -1,13 +1,14 @@
-﻿Write-Host "Press X to Exit or enter to keep concatentating"
+﻿cls; Write-Host "Press X to Exit or enter to keep concatentating"
 
-$Key
+[string]$DatBoi = ""
+[int]$LoopCount = 0
 
 DO 
 {
-$input = Read-Host "Type something"
-$Key =  $Key + $input
-
+	$input = Read-Host "Type something"
+	$DatBoi += $input + "`r`n"
+	if ($input -notlike "X") {$LoopCount++}
 } While ($input -notlike "X") 
 
-
-Write-Host $Key
+Write-Host $DatBoi
+Write-Host "Looped "  $LoopCount  " times"

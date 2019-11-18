@@ -3,9 +3,9 @@
 #
 Clear
 [char]$SelectedOption
-[int]$Value1
-[int]$Value2
-[string]$Answer
+[int]$Value1 = 1
+[int]$Value2 = 1
+[decimal]$Answer = 1
 
 
 While ($SelectedOption -ne "Q") 
@@ -39,5 +39,6 @@ if ($SelectedOption -ne "Q")
 
 		Write-Host "The result of that operation is " $Answer
 		Write-Host "Press any key to continue or Q to quit"
+		$SelectedOption = Read-Host
 	}
 } 

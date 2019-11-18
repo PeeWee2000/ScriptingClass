@@ -15,7 +15,7 @@ foreach ($Row in $WorkSheet) {
     $CSV1 += $Row.Material + "," + $Cost.ToString("0.00") + "," + $Price.ToString("0.00") + "`r`n"     #Each of these 3 lines adds a row to a string variable once all rows in the worksheet have been looped through
     $CSV2 += $Row.Material + "-00," + $Cost.ToString("0.00") + "," + $Price.ToString("0.00") + "`r`n"  #Note that .ToString(0.00) formats a decimal as a string with two two decimal places and includes trailing zeroes
     $CSV3 += $Row.Material + "-01," + $Cost.ToString("0.00") + "," + $Price.ToString("0.00") + "`r`n"} #Note that `r`n is recognized as a new line in a csv
-                                                                                                     
+                    
 $CSV1 | Out-File -FilePath .\GDPARTS.CSV
 $CSV2 | Out-File -FilePath .\GDPARTS00.CSV
 $CSV3 | Out-File -FilePath .\GDPARTS01.CSV 
